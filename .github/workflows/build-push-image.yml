@@ -14,17 +14,11 @@ jobs:
       - name: Build image
         run: docker build -t imageku .
 
-      - name: List image
-        run: docker images
-
-      - name: Cek isi image
-        run: docker history imageku:latest
-
       - name: Login to GitHub Registry
         run: echo ${{ secrets.TOKEN_GITHUB }} | docker login ghcr.io -u julianpratamaa --password-stdin
 
       - name: Tag image
-        run: docker tag imageku ghcr.io/username_github/imageku:latest
+        run: docker tag imageku ghcr.io/julianpratamaa/imageku:latest
 
       - name: Push Image
         run: docker push ghcr.io/julianpratamaa/imageku:latest
