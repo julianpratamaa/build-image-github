@@ -4,21 +4,21 @@ on:
   push:
 
 jobs:
-  build-push-image:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Build
+      - name: Build image
         run: docker build -t imageku .
 
-      - name: Login GHCR
+      - name: Login to GitHub Container Registry
         run: echo ${{ secrets.TOKEN_GITHUB }} | docker login ghcr.io -u julianpratamaa --password-stdin
 
-      - name: Tag
+      - name: Tag image
         run: docker tag imageku ghcr.io/julianpratamaa/imageku:latest
 
-      - name: Push
+      - name: Push image
         run: docker push ghcr.io/julianpratamaa/imageku:latest
